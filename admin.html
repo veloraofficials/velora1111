@@ -2,46 +2,81 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VELORA Owner Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELORA® Owner Dashboard</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#080808;color:white;font-family:Arial;padding:20px}.box{max-width:600px;margin:25px auto;background:#151515;padding:25px;border:1px solid #b89548;border-radius:10px}h1,h2{color:#d6b568;text-align:center}input,textarea,select{width:100%;padding:13px;margin:9px 0;background:#080808;color:white;border:1px solid #777;border-radius:5px}input[type=file]{border:0}button{padding:13px;background:#d6b568;color:#080808;border:0;border-radius:5px;font-weight:bold;cursor:pointer;margin:6px 0;width:100%}.product{border:1px solid #66512d;padding:12px;margin:12px 0;border-radius:6px}.product img{width:75px;height:75px;object-fit:cover;margin:4px}.hidden{display:none}.msg{color:#d6b568;text-align:center;white-space:pre-wrap}.actions{display:flex;gap:8px}.actions button{width:50%}
+*{box-sizing:border-box}
+body{margin:0;background:#080808;color:white;font-family:Arial,sans-serif;padding:20px}
+.container{max-width:650px;margin:25px auto;background:#151515;padding:25px;border:1px solid #b89545;border-radius:12px}
+h1,h2{color:#d5b46a;text-align:center}
+input,textarea,select{width:100%;padding:13px;margin:9px 0;background:#222;color:white;border:1px solid #555;border-radius:5px}
+button{padding:13px;background:#d5b46a;color:#080808;border:0;font-weight:bold;cursor:pointer;border-radius:5px;margin:5px 0}
+.mainbtn{width:100%}
+.product{border:1px solid #555;padding:12px;margin:12px 0;border-radius:7px}
+.product img{width:75px;height:75px;object-fit:cover;margin:4px}
+.hidden{display:none}
+.small{color:#aaa;font-size:13px}
 </style>
 </head>
+
 <body>
-<div class="box">
+
+<div class="container">
+
 <h1>VELORA®</h1>
-<h2>OWNER DASHBOARD</h2>
+<p style="text-align:center;color:#aaa">PRIVATE OWNER DASHBOARD</p>
 
 <div id="login">
 <h2>Owner Login</h2>
 <input id="email" type="email" placeholder="Owner Email">
 <input id="password" type="password" placeholder="Password">
-<button onclick="signIn()">SIGN IN</button>
-<button onclick="resetPassword()">FORGOT PASSWORD</button>
+<button class="mainbtn" onclick="login()">LOGIN</button>
+<button class="mainbtn" onclick="resetPassword()">FORGOT PASSWORD</button>
+<p id="loginMessage" class="small"></p>
 </div>
 
 <div id="dashboard" class="hidden">
-<h2>ADD / EDIT PRODUCT</h2>
-<input id="name" placeholder="Product Name">
-<input id="price" type="number" placeholder="Price in PKR">
-<textarea id="description" placeholder="Product Description"></textarea>
-<textarea id="longDescription" placeholder="Full Product Details"></textarea>
-<input id="sizes" placeholder="Sizes e.g. S,M,L,XL,XXL">
+
+<h2>Product Manager</h2>
+<button class="mainbtn" onclick="logout()">LOG OUT</button>
+
+<h2>Add / Edit Product</h2>
+
+<input id="productName" placeholder="Product Name">
+
+<input id="productPrice" type="number" placeholder="Price in PKR">
+
 <select id="category">
 <option value="Men">Men</option>
 <option value="Women">Women</option>
-<option value="Unisex">Unisex</option>
 </select>
-<label>Choose Product Photos</label>
-<input id="photos" type="file" accept="image/*" multiple>
-<button onclick="saveProduct()">UPLOAD / SAVE PRODUCT</button>
-<button onclick="clearForm()">NEW PRODUCT</button>
-<button onclick="signOut()">LOG OUT</button>
-<h2>YOUR PRODUCTS</h2>
-<div id="products">Loading...</div>
+
+<textarea id="description" placeholder="Short Description"></textarea>
+
+<textarea id="longDescription" placeholder="Full Product Description"></textarea>
+
+<label>Available Sizes</label>
+<div>
+<label><input type="checkbox" name="sizes" value="S"> S</label>
+<label><input type="checkbox" name="sizes" value="M"> M</label>
+<label><input type="checkbox" name="sizes" value="L"> L</label>
+<label><input type="checkbox" name="sizes" value="XL"> XL</label>
+<label><input type="checkbox" name="sizes" value="XXL"> XXL</label>
 </div>
-<div class="msg" id="message"></div>
+
+<p>Choose product photos from your phone:</p>
+<input id="photos" type="file" accept="image/*" multiple>
+
+<p id="uploadStatus" class="small"></p>
+
+<button class="mainbtn" onclick="saveProduct()">SAVE PRODUCT</button>
+<button class="mainbtn" onclick="clearForm()">CLEAR FORM</button>
+
+<h2>Existing Products</h2>
+<div id="productList">Loading products...</div>
+
+</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -49,174 +84,276 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
-const firebaseConfig={
-apiKey:"AIzaSyBm0vK3se38fPbPl2zLkyMztcTP-2zpiU",
-authDomain:"af-brand-jabai.firebaseapp.com",
-projectId:"af-brand-jabai",
-storageBucket:"af-brand-jabai.firebasestorage.app",
-messagingSenderId:"794703482293",
-appId:"1:794703482293:web:b4bde7e5a3af0723621dfc",
-measurementId:"G-SCPD0MJV2F"
+
+const firebaseConfig = {
+apiKey: "AIzaSyBm0vK3se38fPbPl2zLkyMztcTP-2zpiU",
+authDomain: "af-brand-jabai.firebaseapp.com",
+projectId: "af-brand-jabai",
+storageBucket: "af-brand-jabai.firebasestorage.app",
+messagingSenderId: "794703482293",
+appId: "1:794703482293:web:b4bde7e5a3af0723621dfc",
+measurementId: "G-SCPD0MJV2F"
 };
 
-const IMGBB_KEY="f51f9d329e77ea0adf46395b82180d9c";
-
 firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth();
-const db=firebase.firestore();
 
-let editingId=null;
-let oldImages=[];
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-const $=id=>document.getElementById(id);
-const message=t=>$("message").textContent=t;
+const OWNER_UID = "bCvxKOgghqaf4mCNBMXY5ufcUGc2";
+const IMGBB_KEY = "f51f9d329e77ea0adf46395b82180d9c";
+
+let editingId = null;
+let existingImages = [];
 
 auth.onAuthStateChanged(user=>{
-if(user){
-if(user.uid!=="bCvxKOgghqaf4mCNBMXY5ufcUGc2"){
-auth.signOut();
-message("This account is not authorized.");
-return;
-}
-$("login").classList.add("hidden");
-$("dashboard").classList.remove("hidden");
+if(user && user.uid === OWNER_UID){
+document.getElementById("login").classList.add("hidden");
+document.getElementById("dashboard").classList.remove("hidden");
 loadProducts();
 }else{
-$("login").classList.remove("hidden");
-$("dashboard").classList.add("hidden");
+document.getElementById("dashboard").classList.add("hidden");
+document.getElementById("login").classList.remove("hidden");
 }
 });
 
-async function signIn(){
+async function login(){
+const email = document.getElementById("email").value.trim();
+const password = document.getElementById("password").value;
+const message = document.getElementById("loginMessage");
+
 try{
-await auth.signInWithEmailAndPassword($("email").value.trim(),$("password").value);
-message("Login successful");
-}catch(e){message(e.code+": "+e.message)}
+const result = await auth.signInWithEmailAndPassword(email,password);
+
+if(result.user.uid !== OWNER_UID){
+await auth.signOut();
+message.textContent = "Access denied. This account is not the owner.";
+}
+}catch(error){
+message.textContent = error.message;
+}
 }
 
 async function resetPassword(){
-try{
-await auth.sendPasswordResetEmail($("email").value.trim());
-message("Password reset email sent. Check your inbox.");
-}catch(e){message(e.message)}
+const email = document.getElementById("email").value.trim();
+
+if(!email){
+alert("Enter your owner email first.");
+return;
 }
 
-async function signOut(){await auth.signOut()}
+try{
+await auth.sendPasswordResetEmail(email);
+alert("Password reset email sent.");
+}catch(error){
+alert(error.message);
+}
+}
 
-async function uploadImage(file){
-const form=new FormData();
+async function logout(){
+await auth.signOut();
+}
+
+async function uploadImages(files){
+let urls = [];
+
+for(const file of files){
+const form = new FormData();
 form.append("image",file);
-const response=await fetch("https://api.imgbb.com/1/upload?key="+IMGBB_KEY,{
-method:"POST",body:form
-});
-const result=await response.json();
-if(!result.success)throw new Error(result.error?.message||"Image upload failed");
-return result.data.url;
+
+const response = await fetch(
+"https://api.imgbb.com/1/upload?key="+IMGBB_KEY,
+{method:"POST",body:form}
+);
+
+const result = await response.json();
+
+if(!result.success){
+throw new Error("Image upload failed.");
+}
+
+urls.push(result.data.url);
+}
+
+return urls;
 }
 
 async function saveProduct(){
-const user=auth.currentUser;
-if(!user||user.uid!=="bCvxKOgghqaf4mCNBMXY5ufcUGc2"){
-message("Unauthorized account");return;
+
+if(!auth.currentUser || auth.currentUser.uid !== OWNER_UID){
+alert("Access denied.");
+return;
 }
-const name=$("name").value.trim();
-const price=Number($("price").value);
-if(!name||!price){
-message("Enter product name and price");return;
+
+const name = document.getElementById("productName").value.trim();
+const price = document.getElementById("productPrice").value;
+const category = document.getElementById("category").value;
+const description = document.getElementById("description").value.trim();
+const longDescription = document.getElementById("longDescription").value.trim();
+
+const sizes = [...document.querySelectorAll('input[name="sizes"]:checked')]
+.map(item=>item.value);
+
+const files = document.getElementById("photos").files;
+
+if(!name || !price){
+alert("Enter product name and price.");
+return;
 }
+
+const button = document.querySelector('button[onclick="saveProduct()"]');
+button.disabled = true;
+button.textContent = "SAVING...";
+
 try{
-message("Uploading photos...");
-const files=Array.from($("photos").files);
-const images=[...oldImages];
-for(const file of files)images.push(await uploadImage(file));
-if(images.length===0){message("Please select at least one photo");return;}
-const product={
-name:name,
-price:price,
-description:$("description").value,
-longDescription:$("longDescription").value,
-sizes:$("sizes").value.split(",").map(s=>s.trim()).filter(Boolean),
-category:$("category").value,
-images:images,
-image:images[0],
+
+let images = [...existingImages];
+
+if(files.length){
+document.getElementById("uploadStatus").textContent = "Uploading photos...";
+const uploaded = await uploadImages(files);
+images = [...images,...uploaded];
+}
+
+const productData = {
+name,
+price,
+category,
+description,
+longDescription,
+sizes,
+images,
+image:images[0] || "",
 updatedAt:firebase.firestore.FieldValue.serverTimestamp()
 };
+
 if(editingId){
-await db.collection("products").doc(editingId).update(product);
-message("Product updated!");
+await db.collection("products").doc(editingId).update(productData);
+alert("Product updated!");
 }else{
-product.createdAt=firebase.firestore.FieldValue.serverTimestamp();
-await db.collection("products").add(product);
-message("Product added!");
+productData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+await db.collection("products").add(productData);
+alert("Product added successfully!");
 }
+
 clearForm();
 loadProducts();
-}catch(e){message("ERROR: "+e.message)}
+
+}catch(error){
+alert("Error: "+error.message);
+console.error(error);
 }
 
-async function loadProducts(){
-try{
-const snap=await db.collection("products").get();
-$("products").innerHTML="";
-snap.forEach(doc=>{
-const p=doc.data();
-const div=document.createElement("div");
-div.className="product";
-const title=document.createElement("h3");
-title.textContent=p.name||"Product";
-const price=document.createElement("p");
-price.textContent="PKR "+(p.price||0);
-div.append(title,price);
-(p.images||[p.image]).filter(Boolean).forEach(url=>{
-const img=document.createElement("img");
-img.src=url;
-div.appendChild(img);
-});
-const actions=document.createElement("div");
-actions.className="actions";
-const edit=document.createElement("button");
-edit.textContent="EDIT";
-edit.onclick=()=>editProduct(doc.id,p);
-const del=document.createElement("button");
-del.textContent="DELETE";
-del.onclick=()=>deleteProduct(doc.id);
-actions.append(edit,del);
-div.appendChild(actions);
-$("products").appendChild(div);
-});
-if(snap.empty)$("products").textContent="No products yet.";
-}catch(e){message(e.message)}
-}
-
-function editProduct(id,p){
-editingId=id;
-oldImages=p.images||(p.image?[p.image]:[]);
-$("name").value=p.name||"";
-$("price").value=p.price||"";
-$("description").value=p.description||"";
-$("longDescription").value=p.longDescription||"";
-$("sizes").value=(p.sizes||[]).join(",");
-$("category").value=p.category||"Men";
-$("photos").value="";
-message("Editing: "+p.name);
-window.scrollTo(0,0);
-}
-
-async function deleteProduct(id){
-if(!confirm("Delete this product?"))return;
-try{
-await db.collection("products").doc(id).delete();
-message("Product deleted");
-loadProducts();
-}catch(e){message(e.message)}
+button.disabled = false;
+button.textContent = "SAVE PRODUCT";
+document.getElementById("uploadStatus").textContent = "";
 }
 
 function clearForm(){
-editingId=null;
-oldImages=[];
-["name","price","description","longDescription","sizes","photos"].forEach(id=>$(id).value="");
-$("category").value="Men";
+editingId = null;
+existingImages = [];
+
+document.getElementById("productName").value = "";
+document.getElementById("productPrice").value = "";
+document.getElementById("description").value = "";
+document.getElementById("longDescription").value = "";
+document.getElementById("photos").value = "";
+
+document.querySelectorAll('input[name="sizes"]').forEach(item=>{
+item.checked = false;
+});
+
+document.getElementById("category").value = "Men";
+document.getElementById("uploadStatus").textContent = "";
 }
+
+async function loadProducts(){
+
+const container = document.getElementById("productList");
+container.textContent = "Loading...";
+
+try{
+const snapshot = await db.collection("products").get();
+container.innerHTML = "";
+
+if(snapshot.empty){
+container.textContent = "No products yet.";
+return;
+}
+
+snapshot.forEach(doc=>{
+const p = doc.data();
+const images = p.images || (p.image ? [p.image] : []);
+
+const box = document.createElement("div");
+box.className = "product";
+
+const title = document.createElement("h3");
+title.textContent = p.name || "Product";
+
+const price = document.createElement("p");
+price.textContent = "Rs. "+(p.price || "");
+
+const photos = document.createElement("div");
+
+images.forEach(url=>{
+const img = document.createElement("img");
+img.src = url;
+photos.appendChild(img);
+});
+
+const edit = document.createElement("button");
+edit.textContent = "EDIT";
+edit.onclick = ()=>editProduct(doc.id,p);
+
+const remove = document.createElement("button");
+remove.textContent = "DELETE";
+remove.onclick = ()=>deleteProduct(doc.id);
+
+box.append(title,price,photos,edit,remove);
+container.appendChild(box);
+});
+
+}catch(error){
+container.textContent = "Unable to load products: "+error.message;
+}
+}
+
+function editProduct(id,p){
+
+editingId = id;
+existingImages = p.images || (p.image ? [p.image] : []);
+
+document.getElementById("productName").value = p.name || "";
+document.getElementById("productPrice").value = p.price || "";
+document.getElementById("category").value = p.category || "Men";
+document.getElementById("description").value = p.description || "";
+document.getElementById("longDescription").value = p.longDescription || "";
+document.getElementById("photos").value = "";
+
+document.querySelectorAll('input[name="sizes"]').forEach(item=>{
+item.checked = Array.isArray(p.sizes) && p.sizes.includes(item.value);
+});
+
+document.getElementById("uploadStatus").textContent =
+"Existing photos: "+existingImages.length+". New photos will be added.";
+
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteProduct(id){
+
+if(!confirm("Delete this product?")) return;
+
+try{
+await db.collection("products").doc(id).delete();
+alert("Product deleted.");
+loadProducts();
+}catch(error){
+alert(error.message);
+}
+}
+
 </script>
 </body>
 </html>
