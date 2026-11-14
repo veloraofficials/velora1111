@@ -3,295 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>VELORA® | Luxury Fashion House</title>
-<meta name="description" content="Discover VELORA premium men's and women's fashion. Timeless elegance, exceptional quality and nationwide delivery across Pakistan.">
-
+<title>VELORA® | The Art of Elegance</title>
 <style>
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-margin:0;
-background:#090909;
-color:#fff;
-font-family:Arial,sans-serif;
-}
-.container{
-width:92%;
-max-width:1200px;
-margin:auto;
-}
-nav{
-padding:22px 0;
-border-bottom:1px solid #302719;
-background:#090909;
-}
-.nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
-}
-.logo{
-font-family:Georgia,serif;
-font-size:28px;
-letter-spacing:4px;
-}
-.logo span{color:#c9a35b}
-.links a{
-margin-left:18px;
-font-size:13px;
-color:#eee;
-text-decoration:none;
-}
-.links a:hover{color:#c9a35b}
-.hero{
-text-align:center;
-padding:95px 15px;
-background:linear-gradient(135deg,#111,#080808,#19140d);
-}
-.monogram{
-font-family:Georgia,serif;
-font-size:85px;
-color:#c9a35b;
-}
-.eyebrow{
-color:#c9a35b;
-letter-spacing:5px;
-font-size:12px;
-}
-h1{
-font-family:Georgia,serif;
-font-size:65px;
-letter-spacing:5px;
-margin:15px 0;
-}
-.hero p{
-color:#ccc;
-font-size:16px;
-line-height:1.8;
-}
-.btn{
-display:inline-block;
-padding:14px 27px;
-border:1px solid #c9a35b;
-margin:10px 5px;
-text-decoration:none;
-color:#fff;
-font-size:13px;
-letter-spacing:1px;
-}
-.btn.primary{
-background:#c9a35b;
-color:#090909;
-}
-section{padding:65px 0}
-.section-title{
-font-family:Georgia,serif;
-font-size:35px;
-text-align:center;
-margin-bottom:35px;
-}
-.section-title span{color:#c9a35b}
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:22px;
-}
-.card{
-background:#151515;
-border:1px solid #302719;
-padding:15px;
-}
-.card img{
-width:100%;
-height:300px;
-object-fit:cover;
-background:#222;
-}
-.card h3{
-font-family:Georgia,serif;
-font-size:21px;
-}
-.card p{
-color:#aaa;
-line-height:1.6;
-font-size:14px;
-}
-.price{
-color:#c9a35b;
-font-size:20px;
-font-weight:bold;
-}
-#about{
-background:#111;
-text-align:center;
-}
-#about p{
-max-width:650px;
-margin:auto;
-color:#bbb;
-line-height:1.9;
-}
-#contact{text-align:center}
-footer{
-text-align:center;
-padding:25px;
-border-top:1px solid #302719;
-color:#999;
-font-size:12px;
-}
-@media(max-width:600px){
-.nav{justify-content:center}
-.links a{margin:0 7px;font-size:12px}
-h1{font-size:43px}
-.monogram{font-size:65px}
-.hero{padding:65px 10px}
-}
+body{margin:0;background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #302719}
+.logo{font-size:27px;letter-spacing:5px;color:#d6b568;font-weight:bold}
+nav a{color:#fff;text-decoration:none;margin-left:20px;font-size:13px}
+.hero{text-align:center;padding:90px 20px;background:linear-gradient(#0009,#0009),#17130d}
+.hero h1{font-size:42px;color:#d6b568;letter-spacing:5px}
+.hero p{color:#ccc;letter-spacing:2px}
+.btn{display:inline-block;margin-top:20px;padding:13px 28px;background:#d6b568;color:#080808;text-decoration:none;font-weight:bold}
+section{padding:55px 6%}
+.heading{text-align:center;color:#d6b568;letter-spacing:3px;margin-bottom:35px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px}
+.card{background:#151515;border:1px solid #302719;padding:12px;border-radius:5px}
+.card img{width:100%;height:270px;object-fit:cover;background:#222}
+.card h3{font-size:17px;margin:14px 0 8px}
+.card p{font-size:13px;color:#aaa;line-height:1.5}
+.price{color:#d6b568;font-weight:bold;font-size:17px}
+.card a{display:block;text-align:center;background:#d6b568;color:#080808;text-decoration:none;padding:12px;margin-top:12px;font-weight:bold}
+.empty{text-align:center;color:#aaa;grid-column:1/-1}
+.about{text-align:center;color:#bbb;line-height:1.8;max-width:700px;margin:auto}
+footer{text-align:center;padding:30px;background:#111;color:#aaa;font-size:13px}
+footer a{color:#d6b568;text-decoration:none}
+@media(max-width:500px){.hero h1{font-size:30px}nav a{margin-left:9px;font-size:11px}.logo{font-size:21px}}
 </style>
 </head>
-
 <body>
 
+<header>
+<div class="logo">VELORA®</div>
 <nav>
-<div class="container nav">
-<div class="logo">VELORA<span>®</span></div>
-<div class="links">
-<a href="#collection">Collection</a>
+<a href="#home">Home</a>
+<a href="#products">Shop</a>
 <a href="#about">About</a>
 <a href="#contact">Contact</a>
-</div>
-</div>
 </nav>
+</header>
 
-<section class="hero">
-<div class="container">
-<div class="monogram">V</div>
-<div class="eyebrow">THE ART OF ELEGANCE</div>
-<h1>VELORA</h1>
-<p>
-Timeless Style. Exceptional Quality.<br>
-Discover a new standard of modern fashion.
-</p>
-<a class="btn primary" href="#collection">EXPLORE COLLECTION</a>
-<a class="btn" href="https://wa.me/923417884713">CONTACT US</a>
+<div class="hero" id="home">
+<h1>THE ART OF ELEGANCE</h1>
+<p>Wear the Elegance. Own the Moment.</p>
+<a href="#products" class="btn">EXPLORE COLLECTION</a>
 </div>
-</section>
 
-<section id="collection">
-<div class="container">
-<h2 class="section-title">THE <span>COLLECTION</span></h2>
-<div id="products" class="grid">
-<p>Discovering our collection...</p>
-</div>
+<section id="products">
+<h2 class="heading">OUR COLLECTION</h2>
+<div class="products" id="productList">
+<div class="empty">Loading collection...</div>
 </div>
 </section>
 
 <section id="about">
-<div class="container">
-<h2 class="section-title">ABOUT <span>VELORA</span></h2>
-<p>
-VELORA represents modern luxury, timeless elegance
-and exceptional attention to detail.
-Our collections bring together sophisticated design,
-premium quality and contemporary fashion.
-We believe true style is not about following trends.
-It is about creating your own identity.
-</p>
+<h2 class="heading">ABOUT VELORA</h2>
+<div class="about">
+VELORA® represents timeless style, elegance and premium fashion.
+Discover clothing designed to make every moment special.
 </div>
 </section>
 
 <section id="contact">
-<div class="container">
-<h2 class="section-title">CONTACT <span>US</span></h2>
-<p>Experience VELORA. Order your favourite pieces today.</p>
-
-<a class="btn primary" href="https://wa.me/923417884713">
-WHATSAPP ORDER
-</a>
-
-<p>03417884713</p>
-<p>03298080655</p>
-<p>03194646924</p>
+<h2 class="heading">CONTACT US</h2>
+<div class="about">
+<p>For orders and enquiries, contact us on WhatsApp.</p>
+<a class="btn" href="https://wa.me/923417884713">WHATSAPP US</a>
 </div>
 </section>
 
 <footer>
 <p>© 2026 VELORA® — THE ART OF ELEGANCE</p>
-<p>Premium Fashion | Pakistan</p>
+<p>All Rights Reserved.</p>
 </footer>
 
-<script type="module">
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-getDocs
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-apiKey: "AIzaSyBm0vK3se38fPbP12zLkyMztcTP-2zpiU",
-authDomain: "af-brand-jabai.firebaseapp.com",
-projectId: "af-brand-jabai",
-storageBucket: "af-brand-jabai.firebasestorage.app",
-messagingSenderId: "794703482293",
-appId: "1:794703482293:web:b4de7e5a3af0723621dfc"
+<script>
+const firebaseConfig={
+apiKey:"AIzaSyBm0vK3se38fPbPl2zLkyMztcTP-2zpiU",
+authDomain:"af-brand-jabai.firebaseapp.com",
+projectId:"af-brand-jabai",
+storageBucket:"af-brand-jabai.firebasestorage.app",
+messagingSenderId:"794703482293",
+appId:"1:794703482293:web:b4bde7e5a3af0723621dfc",
+measurementId:"G-SCPD0MJV2F"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const products = document.getElementById("products");
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
 
-try {
-const snapshot = await getDocs(collection(db,"products"));
-products.innerHTML = "";
-
+async function loadProducts(){
+const list=document.getElementById("productList");
+try{
+const snapshot=await db.collection("products").get();
+list.innerHTML="";
 if(snapshot.empty){
-products.innerHTML = "<p>No products available yet.</p>";
+list.innerHTML='<div class="empty">No products available yet.</div>';
+return;
 }
-
-snapshot.forEach((doc) => {
-const p = doc.data();
-
-const card = document.createElement("div");
-card.className = "card";
-
-const img = document.createElement("img");
-img.src = p.image || "";
-img.alt = p.name || "VELORA Product";
-img.loading = "lazy";
-
-const name = document.createElement("h3");
-name.textContent = p.name || "";
-
-const description = document.createElement("p");
-description.textContent = p.description || "";
-
-const price = document.createElement("div");
-price.className = "price";
-price.textContent = "Rs. " + p.price;
-
-const link = document.createElement("a");
-link.className = "btn primary";
-link.href = "product.html?id=" + encodeURIComponent(doc.id);
-link.textContent = "VIEW PRODUCT";
-
-card.append(img,name,description,price,link);
-products.appendChild(card);
+snapshot.forEach(doc=>{
+const p=doc.data();
+const image=p.image||"";
+const name=p.name||"Product";
+const description=p.description||"Premium Collection";
+const price=p.price||"Contact for price";
+const card=document.createElement("div");
+card.className="card";
+const img=document.createElement("img");
+img.src=image;
+img.alt=name;
+img.loading="lazy";
+const title=document.createElement("h3");
+title.textContent=name;
+const desc=document.createElement("p");
+desc.textContent=description;
+const cost=document.createElement("div");
+cost.className="price";
+cost.textContent="Rs. "+price;
+const link=document.createElement("a");
+link.href="product.html?id="+encodeURIComponent(doc.id);
+link.textContent="VIEW PRODUCT";
+card.append(img,title,desc,cost,link);
+list.appendChild(card);
 });
-
-} catch(error) {
+}catch(error){
 console.error(error);
-products.innerHTML =
-"<p>Unable to load products. Please try again later.</p>";
+list.innerHTML='<div class="empty">Unable to load products. Please check Firebase connection and Firestore read permissions.</div>';
 }
-
+}
+loadProducts();
 </script>
-
 </body>
 </html>
