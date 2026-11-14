@@ -3,136 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VELORA® | The Art of Elegance</title>
+<title>VELORA® | Premium Fashion</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080808;color:#fff;font-family:Arial,sans-serif}
-header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #302719}
-.logo{font-size:27px;letter-spacing:5px;color:#d6b568;font-weight:bold}
-nav a{color:#fff;text-decoration:none;margin-left:20px;font-size:13px}
-.hero{text-align:center;padding:90px 20px;background:linear-gradient(#0009,#0009),#17130d}
-.hero h1{font-size:42px;color:#d6b568;letter-spacing:5px}
-.hero p{color:#ccc;letter-spacing:2px}
-.btn{display:inline-block;margin-top:20px;padding:13px 28px;background:#d6b568;color:#080808;text-decoration:none;font-weight:bold}
-section{padding:55px 6%}
-.heading{text-align:center;color:#d6b568;letter-spacing:3px;margin-bottom:35px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px}
-.card{background:#151515;border:1px solid #302719;padding:12px;border-radius:5px}
-.card img{width:100%;height:270px;object-fit:cover;background:#222}
-.card h3{font-size:17px;margin:14px 0 8px}
-.card p{font-size:13px;color:#aaa;line-height:1.5}
-.price{color:#d6b568;font-weight:bold;font-size:17px}
-.card a{display:block;text-align:center;background:#d6b568;color:#080808;text-decoration:none;padding:12px;margin-top:12px;font-weight:bold}
-.empty{text-align:center;color:#aaa;grid-column:1/-1}
-.about{text-align:center;color:#bbb;line-height:1.8;max-width:700px;margin:auto}
-footer{text-align:center;padding:30px;background:#111;color:#aaa;font-size:13px}
-footer a{color:#d6b568;text-decoration:none}
-@media(max-width:500px){.hero h1{font-size:30px}nav a{margin-left:9px;font-size:11px}.logo{font-size:21px}}
+header{padding:25px 15px;text-align:center;border-bottom:1px solid #b89545}
+.logo{font-size:32px;letter-spacing:6px;color:#d5b46a;font-weight:bold}
+header p{color:#aaa;letter-spacing:3px;font-size:11px}
+nav{display:flex;justify-content:center;gap:20px;padding:15px}
+nav a{color:#d5b46a;text-decoration:none}
+.hero{text-align:center;padding:55px 15px;background:linear-gradient(#171717,#080808)}
+.hero h1{font-size:32px;color:#d5b46a}
+.hero p{color:#aaa}
+h2{text-align:center;color:#d5b46a;margin:35px 0 20px}
+.filters{text-align:center;margin:20px}
+.filters button{background:#111;color:#d5b46a;border:1px solid #d5b46a;padding:10px 18px;margin:5px;cursor:pointer}
+#products{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:15px;padding:15px;max-width:1100px;margin:auto}
+.card{background:#151515;border:1px solid #333;padding:10px}
+.card img{width:100%;height:210px;object-fit:cover;background:#222}
+.card h3{font-size:16px;margin:12px 0 6px}
+.price{color:#d5b46a;font-weight:bold}
+.card button,.order{width:100%;padding:12px;background:#d5b46a;color:#080808;border:0;font-weight:bold;margin-top:10px;cursor:pointer}
+#message{text-align:center;color:#aaa;padding:30px}
+#details{display:none;position:fixed;inset:0;background:#000e;z-index:10;overflow:auto;padding:20px}
+.detail-box{background:#151515;max-width:500px;margin:30px auto;padding:20px;border:1px solid #d5b46a}
+.detail-box img{width:100%;max-height:350px;object-fit:contain}
+.close{float:right;background:none;color:white;border:0;font-size:25px;cursor:pointer}
+.detail-box p{color:#ccc;line-height:1.6}
+footer{text-align:center;padding:35px;color:#aaa;border-top:1px solid #333;margin-top:40px}
+footer a{color:#d5b46a}
 </style>
 </head>
+
 <body>
 
 <header>
 <div class="logo">VELORA®</div>
+<p>PREMIUM FASHION COLLECTION</p>
+</header>
+
 <nav>
 <a href="#home">Home</a>
-<a href="#products">Shop</a>
+<a href="#products-section">Shop</a>
 <a href="#about">About</a>
 <a href="#contact">Contact</a>
 </nav>
-</header>
 
-<div class="hero" id="home">
-<h1>THE ART OF ELEGANCE</h1>
-<p>Wear the Elegance. Own the Moment.</p>
-<a href="#products" class="btn">EXPLORE COLLECTION</a>
-</div>
-
-<section id="products">
-<h2 class="heading">OUR COLLECTION</h2>
-<div class="products" id="productList">
-<div class="empty">Loading collection...</div>
-</div>
+<section class="hero" id="home">
+<h1>STYLE THAT DEFINES YOU</h1>
+<p>Discover the latest premium fashion collection.</p>
 </section>
 
-<section id="about">
-<h2 class="heading">ABOUT VELORA</h2>
-<div class="about">
-VELORA® represents timeless style, elegance and premium fashion.
-Discover clothing designed to make every moment special.
+<h2 id="products-section">OUR COLLECTION</h2>
+
+<div class="filters">
+<button onclick="filterProducts('All')">All</button>
+<button onclick="filterProducts('Men')">Men</button>
+<button onclick="filterProducts('Women')">Women</button>
 </div>
+
+<div id="message">Loading products...</div>
+<div id="products"></div>
+
+<div id="details">
+<div class="detail-box">
+<button class="close" onclick="closeDetails()">×</button>
+<div id="detail-content"></div>
+</div>
+</div>
+
+<section id="about">
+<h2>ABOUT VELORA</h2>
+<p style="text-align:center;color:#aaa;padding:0 20px">
+Discover fashion with elegance, quality and confidence.
+</p>
 </section>
 
 <section id="contact">
-<h2 class="heading">CONTACT US</h2>
-<div class="about">
-<p>For orders and enquiries, contact us on WhatsApp.</p>
-<a class="btn" href="https://wa.me/923417884713">WHATSAPP US</a>
-</div>
+<h2>CONTACT US</h2>
+<p style="text-align:center;color:#aaa">
+For orders and enquiries, contact us on WhatsApp.
+</p>
 </section>
 
 <footer>
-<p>© 2026 VELORA® — THE ART OF ELEGANCE</p>
-<p>All Rights Reserved.</p>
+<p>VELORA® — Premium Fashion</p>
+<p>© 2026 VELORA. All Rights Reserved.</p>
 </footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
-const firebaseConfig={
-apiKey:"AIzaSyBm0vK3se38fPbPl2zLkyMztcTP-2zpiU",
-authDomain:"af-brand-jabai.firebaseapp.com",
-projectId:"af-brand-jabai",
-storageBucket:"af-brand-jabai.firebasestorage.app",
-messagingSenderId:"794703482293",
-appId:"1:794703482293:web:b4bde7e5a3af0723621dfc",
-measurementId:"G-SCPD0MJV2F"
+const firebaseConfig = {
+apiKey: "AIzaSyBm0vK3se38fPbPl2zLkyMztcTP-2zpiU",
+authDomain: "af-brand-jabai.firebaseapp.com",
+projectId: "af-brand-jabai",
+storageBucket: "af-brand-jabai.firebasestorage.app",
+messagingSenderId: "794703482293",
+appId: "1:794703482293:web:b4bde7e5a3af0723621dfc",
+measurementId: "G-SCPD0MJV2F"
 };
 
 firebase.initializeApp(firebaseConfig);
-const db=firebase.firestore();
+const db = firebase.firestore();
 
-async function loadProducts(){
-const list=document.getElementById("productList");
-try{
-const snapshot=await db.collection("products").get();
-list.innerHTML="";
-if(snapshot.empty){
-list.innerHTML='<div class="empty">No products available yet.</div>';
+const whatsappNumber = "923417884713";
+let allProducts = [];
+
+function getImages(product){
+let imgs = product.images || product.photos || [];
+if(typeof imgs === "string") imgs = [imgs];
+if(!imgs.length && product.image) imgs = [product.image];
+return imgs;
+}
+
+function showProducts(products){
+const container = document.getElementById("products");
+const message = document.getElementById("message");
+container.innerHTML = "";
+
+if(!products.length){
+message.textContent = "No products available yet.";
 return;
 }
-snapshot.forEach(doc=>{
-const p=doc.data();
-const image=p.image||"";
-const name=p.name||"Product";
-const description=p.description||"Premium Collection";
-const price=p.price||"Contact for price";
-const card=document.createElement("div");
-card.className="card";
-const img=document.createElement("img");
-img.src=image;
-img.alt=name;
-img.loading="lazy";
-const title=document.createElement("h3");
-title.textContent=name;
-const desc=document.createElement("p");
-desc.textContent=description;
-const cost=document.createElement("div");
-cost.className="price";
-cost.textContent="Rs. "+price;
-const link=document.createElement("a");
-link.href="product.html?id="+encodeURIComponent(doc.id);
-link.textContent="VIEW PRODUCT";
-card.append(img,title,desc,cost,link);
-list.appendChild(card);
+
+message.textContent = "";
+
+products.forEach(product=>{
+const images = getImages(product);
+const card = document.createElement("div");
+card.className = "card";
+
+const img = document.createElement("img");
+img.src = images[0] || "";
+img.alt = product.name || "Product";
+
+const name = document.createElement("h3");
+name.textContent = product.name || "Product";
+
+const price = document.createElement("div");
+price.className = "price";
+price.textContent = "Rs. " + (product.price || "Contact us");
+
+const button = document.createElement("button");
+button.textContent = "VIEW PRODUCT";
+button.onclick = ()=>openDetails(product);
+
+card.append(img,name,price,button);
+container.appendChild(card);
 });
-}catch(error){
+}
+
+function filterProducts(category){
+const filtered = category === "All"
+? allProducts
+: allProducts.filter(p=>(p.category || "").toLowerCase() === category.toLowerCase());
+
+showProducts(filtered);
+}
+
+function openDetails(product){
+const images = getImages(product);
+const sizes = Array.isArray(product.sizes) ? product.sizes.join(", ") : (product.sizes || "Contact us");
+
+const content = document.getElementById("detail-content");
+content.innerHTML = "";
+
+const title = document.createElement("h2");
+title.textContent = product.name || "Product";
+
+content.appendChild(title);
+
+images.forEach(url=>{
+const img = document.createElement("img");
+img.src = url;
+img.style.marginBottom = "10px";
+content.appendChild(img);
+});
+
+const price = document.createElement("h3");
+price.style.color = "#d5b46a";
+price.textContent = "Rs. " + (product.price || "Contact us");
+
+const description = document.createElement("p");
+description.textContent = product.longDescription || product.description || "Contact us for product details.";
+
+const size = document.createElement("p");
+size.textContent = "Available Sizes: " + sizes;
+
+const order = document.createElement("button");
+order.className = "order";
+order.textContent = "ORDER ON WHATSAPP";
+order.onclick = ()=>{
+const message = "Hello VELORA! I want to order: " + (product.name || "Product") + " - Rs. " + (product.price || "");
+window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message),"_blank");
+};
+
+content.append(price,description,size,order);
+document.getElementById("details").style.display = "block";
+}
+
+function closeDetails(){
+document.getElementById("details").style.display = "none";
+}
+
+db.collection("products").onSnapshot(snapshot=>{
+allProducts = snapshot.docs.map(doc=>({
+id:doc.id,
+...doc.data()
+}));
+showProducts(allProducts);
+},error=>{
+document.getElementById("message").textContent = "Unable to load products. Please check your Firebase settings.";
 console.error(error);
-list.innerHTML='<div class="empty">Unable to load products. Please check Firebase connection and Firestore read permissions.</div>';
-}
-}
-loadProducts();
+});
 </script>
+
 </body>
 </html>
